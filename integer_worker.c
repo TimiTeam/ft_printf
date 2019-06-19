@@ -8,10 +8,7 @@ int 						integer_len(long long int num)
 	if (num == 0)
 		return (1);
 	if (num < 0)
-	{
 		num *= -1;
-		len++;
-	}
 	while (num > 0)
 	{
 		num = (num - (num % 10)) / 10;
@@ -27,6 +24,8 @@ int 						fill_numbers(char *b, int from, int to, long long nb)
 
 	i = 0;
 	num = ft_itoa(nb);
+	if (num[i] == '-')
+		i++;
 	while (from < to && num[i])
 	{
 		b[from] = num[i];
@@ -74,7 +73,7 @@ int 						make_signed_integer(char buff[], t_format *f, long long int num)
 	size = int_len > f->width ? int_len : f->width;
 	size = size > f->accuracy ? size : f->accuracy;
 	space = size - (int_len > f->accuracy ? int_len : f->accuracy);
-	if (f->flags.space || f->flags.plus)
+	if (f->flags.space || f->flags.plus || (int)num < 0)
 		space -= 1;
 	while (ret < space && !f->flags.minus)
 		buff[ret++] = ' ';
@@ -82,10 +81,10 @@ int 						make_signed_integer(char buff[], t_format *f, long long int num)
 		buff[ret++] = f->flags.space > f->flags.plus ? ' ' : '+';
 	if (f->width <= size && !(f->width > int_len && f->width > f->accuracy) && (f->flags.space || f->flags.plus))
 		size++;
+	if ((int)num < 0)
+		buff[ret++] = '-';
 	if (f->accuracy > int_len || !f->flags.minus)
 	{
-		if ((int)num < 0)
-			int_len += 1;
 		if (f->flags.minus)
 			ret = fill_char(buff, ret, ret + (f->accuracy - int_len), '0');
 		else

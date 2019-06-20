@@ -12,11 +12,11 @@ int 	main()
 
 	printf("Max integer = %lld\n\n", INT_MAX);
 	ft_printf("-- MY FUNCTION\n");
-	ret = ft_printf("Hello, World!%%%++#0013.7hhX\nIt's good %1.1lld\n", INT_MAX, LONG_LONG_MIN);
+	ret = ft_printf("Hello, World!%%%++#00ld\nIt's good %1.29lld\n", INT_MAX, LONG_LONG_MIN);
 	ft_putstr("ret = ");
 	ft_putnbr(ret);
 	ft_putendl("\n\n-- ORIGINAL");
-	   ret = printf("Hello, World!%%%++#0013.7hhX\nIt's good %1.1lld\n", INT_MAX, LONG_LONG_MIN);
+	   ret = printf("Hello, World!%%%++#00ld\nIt's good %1.29lld\n", INT_MAX, LONG_LONG_MIN);
 	ft_putstr("ret = ");
 	ft_putnbr(ret);
 	write(1, "\n\n", 2);

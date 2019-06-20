@@ -78,7 +78,7 @@ int 						make_signed_integer(char buff[], t_format *f, long long int num)
 	space = size - (int_len > f->accuracy ? int_len : f->accuracy);
 	if (f->flags.space || f->flags.plus || num < 0)
 		space -= 1;
-	while (ret < space && !f->flags.minus)
+	while (ret < space && !f->flags.minus && f->accuracy)
 		buff[ret++] = ' ';
 	if (num > 0 && (f->flags.space || f->flags.plus))
 		buff[ret++] = f->flags.space > f->flags.plus ? ' ' : '+';
@@ -103,7 +103,7 @@ int 						make_signed_integer(char buff[], t_format *f, long long int num)
 		ret = fill_numbers(buff, ret, int_len + ret, num);
 		ret = fill_char(buff, ret, size, ' ');
 	}
-	ret = fill_char(buff, ret, size, ' ');
+	ret = fill_char(buff, ret, size, '*');
 	return (ret);
 }
 

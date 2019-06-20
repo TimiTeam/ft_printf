@@ -25,6 +25,8 @@ static char		*get_value_width_or_accur(char *p, int *to, va_list va_list)
 		dig_size = 1;
 		*to = va_arg(va_list, int);
 	}
+	else
+		*to = 1;
 	while (dig_size && dig_size--)
 		p++;
 	return (p);

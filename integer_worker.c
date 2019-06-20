@@ -8,7 +8,10 @@ int 						integer_len(long long int num)
 	if (num == 0)
 		return (1);
 	if (num < 0)
+	{
 		num *= -1;
+		len++;
+	}
 	while (num > 0)
 	{
 		num = (num - (num % 10)) / 10;
@@ -73,16 +76,19 @@ int 						make_signed_integer(char buff[], t_format *f, long long int num)
 	size = int_len > f->width ? int_len : f->width;
 	size = size > f->accuracy ? size : f->accuracy;
 	space = size - (int_len > f->accuracy ? int_len : f->accuracy);
-	if (f->flags.space || f->flags.plus || (int)num < 0)
+	if (f->flags.space || f->flags.plus || num < 0)
 		space -= 1;
 	while (ret < space && !f->flags.minus)
 		buff[ret++] = ' ';
-	if ((int)num > 0 && (f->flags.space || f->flags.plus))
+	if (num > 0 && (f->flags.space || f->flags.plus))
 		buff[ret++] = f->flags.space > f->flags.plus ? ' ' : '+';
 	if (f->width <= size && !(f->width > int_len && f->width > f->accuracy) && (f->flags.space || f->flags.plus))
 		size++;
-	if ((int)num < 0)
+	if (num < 0)
+	{
 		buff[ret++] = '-';
+		int_len--;
+	}
 	if (f->accuracy > int_len || !f->flags.minus)
 	{
 		if (f->flags.minus)

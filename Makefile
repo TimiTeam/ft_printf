@@ -16,10 +16,10 @@ $(LIBFT_A):
 	@make -C libft/
 
 $(NAME): $(LIBFT_A) $(OBJS)
-	$(CC) $(OBJS) -L libft -lft -o $(NAME)
+	$(CC) $(OBJS) -L libft -lft -lm -o $(NAME)
 
 %.o: %.c
-	$(CC) $(LFT_INCL) -c $< -o $@
+	$(CC) -g $(LFT_INCL) -c $< -o $@
 
 clean:
 	@make -C libft/ clean
